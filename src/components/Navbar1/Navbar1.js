@@ -19,7 +19,7 @@ const Navbar1 = () => {
   };
   return (
     <Container className="NavContain" style={{ border: "2px solid red" }}>
-      {state.interfaceStrings.welcome} {state.user.nickname}
+      <h2>{window.location.pathname==='/thoughts' ? state.group.title : state.interfaceStrings.welcome + ' ' + state.user.nickname}</h2>
       <div className="NavButtonsArea">
         <div className="NavUserBtnArea">
           <Button className="navButton" onClick={() => navigate("/user")}>

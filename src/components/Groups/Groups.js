@@ -39,11 +39,11 @@ const Groups = () => {
       <div className="styles_scrollable-div__prSCv">
         <div>
           {state.groups
-          .filter((group) =>
-          group.title
-            .toLowerCase()
-            .includes(groupSearchText.toLowerCase())
-        )
+            .filter((group) =>
+              group.title
+                .toLowerCase()
+                .includes(groupSearchText.toLowerCase())
+            )
             .map((group, i) => (
               <Container
                 style={{
