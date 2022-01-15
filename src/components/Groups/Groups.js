@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ReactScrollableFeed from "react-scrollable-feed";
 import { FaTrash } from "react-icons/fa";
-import { getGrps, createTestGrp, setGrp } from "../../actions/useData";
+import { getGrps, createTestGrp, setGrp, leaveGroup } from "../../actions/useData";
 import NewGrpModal from "./NewGrpModal";
 const Groups = () => {
   let navigate = useNavigate()
@@ -19,8 +19,9 @@ const Groups = () => {
   const state = useSelector((state) => state.state);
   
   let levi = true;
-  const handleDelete = (id) => {
-    console.log(`delete group ${id}`);
+  const handleDelete = (g_id) => {
+    console.log(`delete group ${g_id}`);
+    dispatch(leaveGroup({g_id: g_id, u_id: state.user._id}))
   };
   useEffect(() => {
     state.user._id==='' && navigate('/')
@@ -38,11 +39,11 @@ const Groups = () => {
       <div className="styles_scrollable-div__prSCv">
         <div>
           {state.groups
-            .filter((group) =>
-              group.title
-                .toLowerCase()
-                .includes(groupSearchText.toLowerCase())
-            )
+          .filter((group) =>
+          group.title
+            .toLowerCase()
+            .includes(groupSearchText.toLowerCase())
+        )
             .map((group, i) => (
               <Container
                 style={{

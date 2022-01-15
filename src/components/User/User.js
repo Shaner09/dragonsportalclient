@@ -31,7 +31,7 @@ const User = () => {
   return (
     <Container>
       <Button onClick={() => console.log(state)}>Log State</Button>
-      <div classname="profileArea">
+      <div className="profileArea">
         <h2>Profile Info:</h2>
         <div className="fullname">
           {state.interfaceStrings.fullName}: {state.user.fullName}

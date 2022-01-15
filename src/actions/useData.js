@@ -101,6 +101,8 @@ const state = (
       return { ...state2, groups: [...state2.groups, action.payload] };
     case "SET_GROUP":
       return { ...state2, group: action.payload };
+    case "LEAVE_GROUP":
+      return { ...state2, groups: state2.groups.filter(group=>group._id!==action.payload) };
     case "SET_USER":
       return { ...state2, user: action.payload };
     case "SET_GHOSTING":
@@ -325,11 +327,22 @@ export const clearState = () => async (dispatch) => {
   }
 };
 
+export const leaveGroup = (leaveData) => async (dispatch) => {
+  try {
+    //given {code, u_id}, find the group in the database and verify the code
+    const { data } = await axios.put(url + "portal/leave/group", leaveData)
+    console.log(data.groups[0]._id )
+    dispatch({ type: "LEAVE_GROUP", payload: data.groups[0]._id });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const test = () => async (dispatch) => {
   try {
-    let thing =["en", "es"]
-    const { data } = await axios.put(url + "user/61cde314f7ee6016968dc8cc", {u_id:'61cde314f7ee6016968dc8cc', userPutter:{language:'fr'}})
-    dispatch({ type: "TEST", payload: data });
+    let thing ={u_id:"61e21c9d4f3bb4083d03577f",g_id:"61e21cae4f3bb4083d035782"}
+    const { data } = await axios.put(url + "portal/leave/group", thing)
+    dispatch({ type: "TEST", payload: data.groups[0]._id });
   } catch (error) {
     console.log(error);
   }
