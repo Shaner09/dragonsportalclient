@@ -199,11 +199,12 @@ export const editThought = (editData) => async (dispatch) => {
 export const createGrp = (grpData) => async (dispatch) => {
   try {
     //given {u_id, title} this route should add the new grp to the database and the user object
-    const data = await axios.post(url + "portal/group", {
+    const {data} = await axios.post(url + "portal/group", {
       title: grpData.title,
       u_id: grpData.u_id,
     });
-    dispatch({ type: "UPDATE_GROUPS", payload: data.data });
+    dispatch({ type: "UPDATE_GROUPS", payload: data });
+    dispatch({ type: "SET_GROUP", payload: data });
   } catch (error) {
     console.log(error);
   }
@@ -241,6 +242,7 @@ export const joinGrp = (joinData) => async (dispatch) => {
       url + "portal/join/" + joinData.fullCode + "/" + joinData.u_id
     );
     dispatch({ type: "UPDATE_GROUPS", payload: data.data.groups[0] });
+    dispatch({ type: "SET_GROUP", payload: data.data.groups[0] });
   } catch (error) {
     console.log(error.message);
   }

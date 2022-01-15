@@ -88,6 +88,7 @@ const ThoughtList = () => {
       <LanguageSelector page={"thoughts"} showLS={showLS} setShowLS={setShowLS}></LanguageSelector>
     <Container style={{ display: "flex", flexDirection: "column", padding: "0px", height: "400px"}}>
       <ReactScrollableFeed>
+        {state.thoughts.length===0 && 'please generate an invite code and share it with your friend'}
         {state.thoughts.map((thought, i) => (
           <Container style={{ borderRadius: "10px", padding: "5px", margin: "10px 0px", background: "#D8D8D8",}} key={i}>
             <h3>{thought.creatorNickName}</h3>
