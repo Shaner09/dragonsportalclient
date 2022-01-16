@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Button, Modal, FormControl} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { changePassword } from "../../actions/useData";
+import { changePassword, setCommand } from "../../actions/useData";
 
 const ChangePasswordModal = (props) => {
     const [showModal, setShowModal] = useState(false);
@@ -15,6 +15,14 @@ const ChangePasswordModal = (props) => {
       setShowModal(!showModal)
       //possibly throw a new modal with an update on how the request went
     }
+
+    useEffect( async ()=>{
+      if (state.command.includes("portal change password")) {
+        console.log(state.command)
+        setShowModal(!showModal)
+      }
+      dispatch(setCommand(''))
+    },[state.command])
 
     return (
       <span>

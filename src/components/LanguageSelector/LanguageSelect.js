@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   InputGroup,
@@ -11,6 +11,7 @@ import {
   setBrowserLanguage,
   changeUserLanguage,
   setGhosting,
+  setCommand,
 } from "../../actions/useData";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
@@ -49,6 +50,26 @@ const LanguageSelector = (props) => {
       ? setShowModal(!showModal)
       : props.setShowLS(false);
   };
+
+  useEffect(()=>{
+    if (state.command.includes("portal ghost")) {
+      let searchString = state.command.split('-x9-')[1].toLowerCase()
+      let language1 = languageInfo.filter(language2=>searchString.includes(language2[0].toLowerCase().split('-').join(' ')))[0]
+      if (language1!==undefined) { 
+        dispatch(setGhosting(language1[1]))
+      } else {
+        dispatch(setGhosting(''))
+      }
+    }else if (state.command.includes("portal change language")) {
+      let searchString = state.command.split('-x9-')[1].toLowerCase()
+      let language1 = languageInfo.filter(language2=>searchString.includes(language2[0].toLowerCase().split('-').join(' ')))[0]
+      if (language1!==undefined) {
+        dispatch(setBrowserLanguage({ languageCode: language1[1]}))
+        dispatch(changeUserLanguage({u_id: state.user._id,userPutter: { language: language1[1] }}));
+      }
+    }
+    dispatch(setCommand(''))
+  },[state.command])
 
   return (
     <span>

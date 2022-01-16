@@ -20,7 +20,7 @@ const App = () => {
 
     return (
         <Router>
-            {window.location.pathname!=='/' && <Navbar1/>}
+            <Navbar1/>
             <Routes>
                 <Route path='/' element={<WelcomePage/>}/>
                 <Route path='/homePage' element={<homePage/>}/>
