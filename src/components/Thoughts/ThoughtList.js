@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Button, Modal, FormControl, ToggleButton } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getThoughts, get10Thoughts, invite, resetThoughts, deleteThought, editThought, setGhosting } from "../../actions/useData";
+import { getThoughts, get10Thoughts, invite, resetThoughts, deleteThought, editThought, setGhosting, setCommand } from "../../actions/useData";
 import ReactScrollableFeed from "react-scrollable-feed";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import {useNavigate} from 'react-router-dom'
@@ -70,6 +70,11 @@ const ThoughtList = () => {
     }
     dispatch(getThoughts(getObject))
   }, []);
+
+  useEffect(()=>{
+    state.command==="invite" && generateInvite()
+    dispatch(setCommand(''))
+  },[state.command])
 
   return (
     <Container>

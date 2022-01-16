@@ -9,32 +9,26 @@ import { createGrp, joinGrp } from "../../actions/useData";
 const User = () => {
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
-  const [ranCommand, setRanCommand] = useState(false);
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const state = useSelector((state) => state.state);
 
   const openGrp = () => {
-    setRanCommand(false)
     navigate("/groups");
   };
-  const handleCreateGrp = () => {
-    dispatch(createGrp({ u_id: state.user._id, title: title }));
-    setRanCommand(true)
+  const handleCreateGrp = async () => {
+    let results = await dispatch(createGrp({ u_id: state.user._id, title: title }));
+    results && navigate("/thoughts");
   };
 
-  const handleJoinGrp = () => {
-    dispatch(joinGrp({ u_id: state.user._id, fullCode: code }));
-    setRanCommand(true)
+  const handleJoinGrp = async () => {
+    let results = await dispatch(joinGrp({ u_id: state.user._id, fullCode: code }));
+    results && navigate("/thoughts");
   };
 
   useEffect(() => {
     state.user._id === "" && navigate("/");
   }, []);
-  useEffect(() => {
-    (ranCommand && state.group._id !== "") && navigate("/thoughts");
-    setRanCommand(false)
-  }, [state.group]);
 
   return (
     <Container>

@@ -8,16 +8,17 @@ const Registration = (props) => {
   const state = useSelector((state) => state.state)
 
     const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState('');
     const [data, setData] = useState({nickname:'',language:'',firstName:'',lastName:'',password:'',verifyPassword:''})
  
-    const handleLogin = () => {
+    const handleRegister = async () => {
       if (data.password===data.verifyPassword) {
-        console.log(data)
-        dispatch(register({...data,language: state.browserLanguageCode}))
-        setShowModal(!showModal)
+        const results = await dispatch(register({...data,language: state.browserLanguageCode}))
+        results? setMessage(`User "${results.nickname}" created!`) : setMessage('Request failed. try again.')
       } else {
-        console.log('your passwords dont match, dummy')
+        setMessage('Your passwords do not match')
       }
+      setShowModal(!showModal)
     }
  
     return (
@@ -101,9 +102,10 @@ const Registration = (props) => {
             >
               Close
             </Button>
-            <Button variant="primary" onClick={handleLogin}>{state.interfaceStrings.register}</Button>
+            <Button variant="primary" onClick={handleRegister}>{state.interfaceStrings.register}</Button>
           </Modal.Footer>
         </Modal>
+        {message}
         </span>
     );
 }

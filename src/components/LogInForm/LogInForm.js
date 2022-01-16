@@ -15,30 +15,23 @@ const LogInForm =({setToken})=>{
     const [isLogging, setIsLogging] = useState(false);
     const [data, setData] = useState({nickname:'englishguy',password:'shanep'})
     const [showModal, setShowModal] = useState(false)
+    const [message, setMessage] = useState('')
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setIsLogging(true)
-        dispatch(login(data))
-        console.log('oioioioii')
-        console.log(state)
-        setShowModal(!showModal)
-    }
-
-    useEffect(()=>{
-      if (state.user._id!=='') {
-        dispatch(setBrowserLanguage({languageCode:state.user.language}))
-      }
-      if (state.user._id!=='' && state.user.groups.length>0 && isLogging) { 
-        navigate('/groups')
-      } else { 
-        if (state.user._id!=='' && isLogging) { 
-          navigate('/user')
+        let results = await dispatch(login(data))
+        if (results) {
+          dispatch(setBrowserLanguage({languageCode:results.users[0].language}))
+          if (results.users[0].groups.length>0) { 
+            navigate('/groups')
+          } else { 
+            navigate('/user')
+          }
+        } else {
+          setMessage("User not found")
         }
-      }
-      setIsLogging(false)
-    },[state.user._id])
+    }
    
     // async function loginUser(credentials) {
     //     return fetch('http://localhost:8080/login', {
@@ -87,6 +80,7 @@ const LogInForm =({setToken})=>{
         </Modal.Title>
     </Modal.Header>
     <Modal.Body>
+    <h2 style={{textAlign:'center', color:'red'}}>{message}</h2>
         {/* <LogInForm/> */}
         <Form onSubmit={(e)=>handleSubmit(e)}>
         <Form.Label className="userID" value="">

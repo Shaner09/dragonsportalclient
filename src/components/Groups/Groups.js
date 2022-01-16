@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ReactScrollableFeed from "react-scrollable-feed";
 import { FaTrash } from "react-icons/fa";
-import { getGrps, createTestGrp, setGrp, leaveGroup } from "../../actions/useData";
+import { getGrps, createTestGrp, setGrp, leaveGroup, setCommand } from "../../actions/useData";
 import NewGrpModal from "./NewGrpModal";
 const Groups = () => {
   let navigate = useNavigate()
@@ -27,6 +27,17 @@ const Groups = () => {
     state.user._id==='' && navigate('/')
     //setInterval(updateThoughts, 10000);
   }, []);
+  useEffect(() => {
+    if (state.command.includes("portal open")) {
+      let searchString = state.command.split('-x9-')[1].toLowerCase()
+      let group = state.groups.filter(group=>searchString.includes(group.title.toLowerCase()))[0]
+      if (group!==undefined) { 
+        dispatch(setGrp(group))
+        navigate('/thoughts')
+      }
+    }
+    dispatch(setCommand(''))
+  }, [state.command]);
   return (
     <Container
       style={{

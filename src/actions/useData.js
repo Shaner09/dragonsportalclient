@@ -48,8 +48,10 @@ const state = (
       "yes": "Yes",
       "no": "No"
   },
-    ghosting:'',
-    test: "",
+  message:'',
+  ghosting:'',
+  command:'',
+  test: "",
   },
   action
 ) => {
@@ -105,6 +107,10 @@ const state = (
       return { ...state2, groups: state2.groups.filter(group=>group._id!==action.payload) };
     case "SET_USER":
       return { ...state2, user: action.payload };
+    case "LOGIN":
+      return { ...state2, user: action.payload.user, groups:action.payload.groups };
+    case "SET_MESSAGE":
+      return { ...state2, message: action.payload };
     case "SET_GHOSTING":
       return { ...state2, ghosting: action.payload };
     case "SET_BROWSER_LANGUAGE":
@@ -112,6 +118,8 @@ const state = (
       return { ...state2, browserLanguageCode: action.payload.languageCode, browserLanguage: needed[2], interfaceStrings: needed[3]};
     case "SET_INTERFACE_STRINGS":
       return { ...state2, interfaceStrings: action.payload };
+    case "SET_COMMAND":
+      return { ...state2, command: action.payload };
     case "CLEAR_STATE":
       return { ...state2, user: {   _id: "", fullName: "", nickname: "", language: "" },thoughts: [],groups: [],group: {_id: "",title: "",participants: [],thoughts: [],creator: ""}, ghosting:'' };
     case "TEST":
@@ -205,20 +213,9 @@ export const createGrp = (grpData) => async (dispatch) => {
     });
     dispatch({ type: "UPDATE_GROUPS", payload: data });
     dispatch({ type: "SET_GROUP", payload: data });
+    return data
   } catch (error) {
     console.log(error);
-  }
-};
-
-//this function is of no use to anyone besides the developer.
-export const getGrps = (groups) => async (dispatch) => {
-  try {
-    const data = mockData.groups.filter((grp) => groups.includes(grp._id));
-    //const {data} = await axios.get(url+'group')
-
-    dispatch({ type: "SET_GROUPS", payload: data });
-  } catch (error) {
-    console.log(error.message);
   }
 };
 
@@ -243,6 +240,30 @@ export const joinGrp = (joinData) => async (dispatch) => {
     );
     dispatch({ type: "UPDATE_GROUPS", payload: data.data.groups[0] });
     dispatch({ type: "SET_GROUP", payload: data.data.groups[0] });
+    return data
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const leaveGroup = (leaveData) => async (dispatch) => {
+  try {
+    //given {code, u_id}, find the group in the database and verify the code
+    const { data } = await axios.put(url + "portal/leave/group", leaveData)
+    console.log(data.groups[0]._id )
+    dispatch({ type: "LEAVE_GROUP", payload: data.groups[0]._id });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//this function is of no use to anyone besides the developer.
+export const getGrps = (groups) => async (dispatch) => {
+  try {
+    const data = mockData.groups.filter((grp) => groups.includes(grp._id));
+    //const {data} = await axios.get(url+'group')
+
+    dispatch({ type: "SET_GROUPS", payload: data });
   } catch (error) {
     console.log(error.message);
   }
@@ -262,8 +283,8 @@ export const login = (input) => async (dispatch) => {
     const thingyy = await axios.get(
       url + "portal/login/" + input.nickname + "/" + input.password
     );
-    dispatch({ type: "SET_USER", payload: thingyy.data.users[0] });
-    dispatch({ type: "SET_GROUPS", payload: thingyy.data.groups });
+    dispatch({ type: "LOGIN", payload: {user:thingyy.data.users[0], groups: thingyy.data.groups} });
+    return thingyy.data
   } catch (error) {
     console.log(error);
   }
@@ -278,6 +299,7 @@ export const register = (data) => async (dispatch) => {
       "password": data.password,
   }
       const registerResult = await axios.post(url + "user/", newData);
+      return (registerResult.data)
   } catch (error) {
     console.log(error);
   }
@@ -300,6 +322,14 @@ export const changeUserLanguage = (input) => async (dispatch) => {
   //given {u_id:idValue, userPutter:{language:languageValue}}
   try {
     const registerResult = await axios.put(url + "user/" + input.u_id, input);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const setStateMessage = (string) => async (dispatch) => {
+  try {
+    dispatch({ type: "SET_MESSAGE", payload: string});
   } catch (error) {
     console.log(error);
   }
@@ -329,12 +359,9 @@ export const clearState = () => async (dispatch) => {
   }
 };
 
-export const leaveGroup = (leaveData) => async (dispatch) => {
+export const setCommand = (commandString) => async (dispatch) => {
   try {
-    //given {code, u_id}, find the group in the database and verify the code
-    const { data } = await axios.put(url + "portal/leave/group", leaveData)
-    console.log(data.groups[0]._id )
-    dispatch({ type: "LEAVE_GROUP", payload: data.groups[0]._id });
+    dispatch({ type: "SET_COMMAND", payload: commandString });
   } catch (error) {
     console.log(error.message);
   }
