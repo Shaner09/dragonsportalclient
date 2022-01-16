@@ -35,6 +35,13 @@ const Groups = () => {
         dispatch(setGrp(group))
         navigate('/thoughts')
       }
+    } else if (state.command.includes("portal leave")) {
+      console.log(state.command)
+      let searchString = state.command.split('-x9-')[1].toLowerCase()
+      let group = state.groups.filter(group=>searchString.includes(group.title.toLowerCase()))[0]
+      if (group!==undefined) { 
+        dispatch(leaveGroup({g_id: group._id, u_id: state.user._id}))
+      }
     }
     dispatch(setCommand(''))
   }, [state.command]);

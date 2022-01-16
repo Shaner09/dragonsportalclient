@@ -70,7 +70,9 @@ let STT = (props) => {
     });
 
     recognition.addEventListener("end", () => {
-      if (textsRef.current.includes('portal my groups')) {
+      if (textsRef.current.includes('portal state')) {
+        console.log(state)
+      } else if (textsRef.current.includes('portal my groups')) {
         navigate("/groups");
       } else if (textsRef.current.includes('portal user page')) {
         navigate("/user");
@@ -109,6 +111,16 @@ let STT = (props) => {
         if (textsRef.current.includes('portal open')) {
           let newCommand = "portal open" + '-x9-' + textsRef.current.split('portal open')[1].trim()
           dispatch(setCommand(newCommand))
+        } else if (textsRef.current.includes('portal leave')) {
+          let newCommand = "portal leave" + '-x9-' + textsRef.current.split('portal leave')[1].trim()
+          dispatch(setCommand(newCommand))
+        }
+      } else if (pageRef.current==='/user') {
+        if (textsRef.current.includes('portal create group')) {
+          let newCommand = "portal create group" + '-x9-' + textsRef.current.split('portal create group')[1].trim()
+          dispatch(setCommand(newCommand))
+        } else if (textsRef.current.includes('portal change password')) {
+          dispatch(setCommand('portal change password'))
         }
       }
 

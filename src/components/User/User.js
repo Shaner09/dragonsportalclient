@@ -4,7 +4,7 @@ import ChangePasswordModal from "./ChangePasswordModal";
 import LanguageSelector from "../LanguageSelector/LanguageSelect";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createGrp, joinGrp } from "../../actions/useData";
+import { createGrp, joinGrp, setCommand } from "../../actions/useData";
 
 const User = () => {
   const [title, setTitle] = useState("");
@@ -29,6 +29,18 @@ const User = () => {
   useEffect(() => {
     state.user._id === "" && navigate("/");
   }, []);
+
+  useEffect( async ()=>{
+    if (state.command.includes("portal create group")) {
+      console.log(state.command)
+      let newTitle = state.command.split('-x9-')[1].toLowerCase()
+      if (newTitle?.length>3) {
+        let results = await dispatch(createGrp({ u_id: state.user._id, title: newTitle }));
+        results && navigate("/thoughts");
+      }
+    }
+    dispatch(setCommand(''))
+  },[state.command])
 
   return (
     <Container>
