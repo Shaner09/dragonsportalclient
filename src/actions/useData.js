@@ -46,7 +46,19 @@ const state = (
       "send": "Send",
       "deleteThought": "Delete this thought?",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "update": "Update",
+      "language": "Language",
+      "noThoughts": "Please generate an invite code and share it with your friend",
+      "noGroups": "Please create a group",
+      "noUser": "User not found",
+      "passError1": "Passwords do not match",
+      "user": "User",
+      "created": "created!",
+      "registerUnsuccessful": "Register unsuccessful",
+      "welcome1": "One stop real time communicator for the diversed multi-lingual environment.",
+      "welcome2": "We will be your voice.",
+      "portal": "portal"
   },
   message:'',
   ghosting:'',
@@ -321,7 +333,8 @@ export const changePassword = (input) => async (dispatch) => {
 export const changeUserLanguage = (input) => async (dispatch) => {
   //given {u_id:idValue, userPutter:{language:languageValue}}
   try {
-    const registerResult = await axios.put(url + "user/" + input.u_id, input);
+    const {data} = await axios.put(url + "user/" + input.u_id, input);
+    dispatch({ type: "SET_USER", payload: data});
   } catch (error) {
     console.log(error);
   }
