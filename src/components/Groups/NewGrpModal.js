@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
+import {useNavigate} from 'react-router-dom'
 //import { createTestGrp } from "../../actions/useData";
 import { useDispatch, useSelector } from "react-redux";
+import { createGrp } from "../../actions/useData";
 const NewGrpModal = () => {
-    const createTestGrp = () => {
-        console.log('hi')
-    }
+  let navigate = useNavigate()
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.state);
+
   const [showModal, setShowModal] = useState(false);
   const [grpData, setGrpData] = useState({
     thoughts: "",
@@ -14,8 +17,6 @@ const NewGrpModal = () => {
     title: "",
     creator: "",
   });
-  const dispatch = useDispatch();
-    const state = useSelector((state) => state.state);
     
  
   return (
@@ -37,11 +38,11 @@ const NewGrpModal = () => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <h3>Modal title</h3>
+          <h3>{state.interfaceStrings.createGroup}</h3>
         </Modal.Header>
         <Modal.Body>
           <FormControl
-            placeholder="title"
+            placeholder={state.interfaceStrings.title}
             required
             value={grpData.title}
             onChange={(e) =>
@@ -51,27 +52,13 @@ const NewGrpModal = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            variant="secondary"
-            onClick={() => {
-              setShowModal(!showModal);
-            }}
-          >
-            Close
-          </Button>
-          <Button
             variant="primary"
-            onClick={() => {
-              let newGrpData = {
-                ...grpData,
-                creator: state.user._id,
-                thoughts: [],
-                participants: [state.user._id],
-              };
-              dispatch(createTestGrp(newGrpData));
-              setShowModal(!showModal);
+            onClick={async () => {
+              let results = await dispatch(createGrp({ u_id: state.user._id, title:grpData.title  }));
+              results && navigate("/thoughts");
             }}
           >
-            Understood
+            {state.interfaceStrings.enter}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -10,8 +10,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ReactScrollableFeed from "react-scrollable-feed";
 import { FaTrash } from "react-icons/fa";
-import { getGrps, createTestGrp, setGrp, leaveGroup, setCommand } from "../../actions/useData";
+import { getGrps, createTestGrp, setGrp, leaveGroup, setCommand, createGrp } from "../../actions/useData";
 import NewGrpModal from "./NewGrpModal";
+import LanguageSelector from "../LanguageSelector/LanguageSelect";
 const Groups = () => {
   let navigate = useNavigate()
   const [groupSearchText, setGroupSearchText] = useState("");
@@ -25,9 +26,8 @@ const Groups = () => {
   };
   useEffect(() => {
     state.user._id==='' && navigate('/')
-    //setInterval(updateThoughts, 10000);
   }, []);
-  useEffect(() => {
+  useEffect(async () => {
     if (state.command.includes("portal open")) {
       let searchString = state.command.split('-x9-')[1].toLowerCase()
       let group = state.groups.filter(group=>searchString.includes(group.title.toLowerCase()))[0]
@@ -42,6 +42,13 @@ const Groups = () => {
       if (group!==undefined) { 
         dispatch(leaveGroup({g_id: group._id, u_id: state.user._id}))
       }
+    } else if (state.command.includes("portal create group")) {
+      console.log(state.command)
+      let newTitle = state.command.split('-x9-')[1].toLowerCase()
+      if (newTitle?.length>3) {
+        let results = await dispatch(createGrp({ u_id: state.user._id, title: newTitle }));
+        results && navigate("/thoughts");
+      }
     }
     dispatch(setCommand(''))
   }, [state.command]);
@@ -54,6 +61,7 @@ const Groups = () => {
         height: "500px",
       }}
     >
+      <LanguageSelector page={"thoughts"} ></LanguageSelector>
       <div className="styles_scrollable-div__prSCv">
         <div>
           {state.groups
@@ -95,7 +103,7 @@ const Groups = () => {
       </div>
       <Container style={{ display: "flex", padding: "0px" }}>
         <FormControl
-          placeholder="Search for Group"
+          placeholder={state.interfaceStrings.searchForGroup}
           value={groupSearchText}
           onChange={(e) => setGroupSearchText(e.target.value)}
         />

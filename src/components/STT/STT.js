@@ -114,6 +114,9 @@ let STT = (props) => {
         } else if (textsRef.current.includes('portal leave')) {
           let newCommand = "portal leave" + '-x9-' + textsRef.current.split('portal leave')[1].trim()
           dispatch(setCommand(newCommand))
+        } else if (textsRef.current.includes('portal create group')) {
+          let newCommand = "portal create group" + '-x9-' + textsRef.current.split('portal create group')[1].trim()
+          dispatch(setCommand(newCommand))
         }
       } else if (pageRef.current==='/user') {
         if (textsRef.current.includes('portal create group')) {

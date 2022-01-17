@@ -29,7 +29,7 @@ const LogInForm =({setToken})=>{
             navigate('/user')
           }
         } else {
-          setMessage("User not found")
+          setMessage(state.interfaceStrings.noUser)
         }
     }
    
@@ -55,8 +55,6 @@ const LogInForm =({setToken})=>{
  
     return (
     <Container style={{textAlign:"center"}}>  
-    <Button onClick={()=>dispatch(test())}>test</Button>
-    <Button onClick={()=>console.log(state)}>log state</Button>
     <Button className="log-in" variant="primary" onClick={() => {
             setShowModal(!showModal)}}>
         {state.interfaceStrings.login}
@@ -82,7 +80,7 @@ const LogInForm =({setToken})=>{
     <Modal.Body>
     <h2 style={{textAlign:'center', color:'red'}}>{message}</h2>
         {/* <LogInForm/> */}
-        <Form onSubmit={(e)=>handleSubmit(e)}>
+        <Form >
         <Form.Label className="userID" value="">
         {state.interfaceStrings.nickname}
         </Form.Label>
@@ -103,15 +101,12 @@ const LogInForm =({setToken})=>{
             onChange={(e) =>
                 setData({...data,password:e.target.value})
             }/>
-    <Button type="submit">{state.interfaceStrings.login}</Button>
     {/* ternary statement alert invalid credentials */}
     {/* clear input soon as submitted */}
 </Form>
     </Modal.Body>
     <Modal.Footer>
-      <Button variant="secondary" onClick={()=>{setShowModal(!showModal)}}>
-        Close
-      </Button>
+      <Button onClick={(e)=>handleSubmit(e)}>{state.interfaceStrings.login}</Button>
     </Modal.Footer>
   </Modal>
   </Container>

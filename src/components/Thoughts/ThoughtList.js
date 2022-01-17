@@ -59,16 +59,20 @@ const ThoughtList = () => {
     e.target.checked ? setShowLS(true) : dispatch(setGhosting(''))
   }
 
-  useEffect(() => {
-    state.user._id==='' && navigate('/')
-    dispatch(resetThoughts())
-    //loadMore(counter)
-    console.log(state.group._id)
+  const handleGet = () => {
     let getObject = {g_id: state.group._id, languages: [state.user.language]}
     if (state.ghosting) {
       getObject.languages.push(state.ghosting)
     }
     dispatch(getThoughts(getObject))
+  }
+
+  useEffect(() => {
+    state.user._id==='' && navigate('/')
+    dispatch(resetThoughts())
+    //loadMore(counter)
+    console.log(state.group._id)
+    handleGet()
   }, []);
 
   useEffect(()=>{
@@ -78,7 +82,7 @@ const ThoughtList = () => {
 
   return (
     <Container>
-      <Button onClick={()=>{console.log(state)}}>Log state</Button>
+      <Button onClick={()=>handleGet()}>{state.interfaceStrings.update}</Button>
       {/*<Button onClick={()=>{loadMore(counter)}}>Load 2 more</Button>*/}
       <Button onClick={generateInvite}>{state.interfaceStrings.getInviteCode}</Button>
       <ToggleButton
@@ -93,7 +97,7 @@ const ThoughtList = () => {
       <LanguageSelector page={"thoughts"} showLS={showLS} setShowLS={setShowLS}></LanguageSelector>
     <Container style={{ display: "flex", flexDirection: "column", padding: "0px", height: "400px"}}>
       <ReactScrollableFeed>
-        {state.thoughts.length===0 && 'please generate an invite code and share it with your friend'}
+        {state.thoughts.length===0 && state.interfaceStrings.noThoughts}
         {state.thoughts.map((thought, i) => (
           <Container style={{ borderRadius: "10px", padding: "5px", margin: "10px 0px", background: "#D8D8D8",}} key={i}>
             <h3>{thought.creatorNickName}</h3>
@@ -114,12 +118,12 @@ const ThoughtList = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              variant="secondary"
+              variant="primary"
               onClick={handleDelete2}
             >
               {state.interfaceStrings.yes}
             </Button>
-            <Button variant="primary" onClick={()=>setShowDeleteModal(!showDeleteModal)}>{state.interfaceStrings.no}</Button>
+            <Button variant="danger" onClick={()=>setShowDeleteModal(!showDeleteModal)}>{state.interfaceStrings.no}</Button>
           </Modal.Footer>
         </Modal>
         <Modal
@@ -139,12 +143,12 @@ const ThoughtList = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              variant="secondary"
+              variant="primary"
               onClick={handleEdit2}
             >
               {state.interfaceStrings.send}
             </Button>
-            <Button variant="primary" onClick={()=>setShowEditModal(!showEditModal)}>Cancel</Button>
+            <Button variant="danger" onClick={()=>setShowEditModal(!showEditModal)}>X</Button>
           </Modal.Footer>
         </Modal>
     </Container>

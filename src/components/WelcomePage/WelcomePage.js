@@ -36,10 +36,6 @@ return(
     <h3>D.F.S./D.</h3> */}
     </span>
     <LanguageSelector page={'welcome'} showLS={false}></LanguageSelector>
-    <Button onClick={()=>{
-        let array = [{language:'en'},{language:'es'},{language:'fr'},{language:'or'},{language:'ol'}]
-        console.log(array.map((thingo,i)=>i).find(index=>array[index].language==="fr"))
-        }}>log thing</Button>
     <Container className="images">
         <img className="dragon-image" src={image1}/>
     </Container>
@@ -53,8 +49,8 @@ return(
         <Registration/>
     </Container>
         <div className="centered" style={{textAlign:"center"}}>
-            <h1>One stop real time communicator for the diversed multi-lingual environment.</h1>
-            <h1>We will be your voice.</h1>
+            <h1>{state.interfaceStrings.welcome1}</h1>
+            <h1>{state.interfaceStrings.welcome2}</h1>
             <h1>------------------------------------------</h1>
         </div>
     </>

@@ -44,9 +44,8 @@ const User = () => {
 
   return (
     <Container>
-      <Button onClick={() => console.log(state)}>Log State</Button>
       <div className="profileArea">
-        <h2>Profile Info:</h2>
+        <h2>{state.interfaceStrings.user}:</h2>
         <div className="fullname">
           {state.interfaceStrings.fullName}: {state.user.fullName}
         </div>
@@ -55,7 +54,7 @@ const User = () => {
         </div>
       </div>
       <div className="languageSelector">
-        Chosen Language :
+      {state.interfaceStrings.language}:
         <LanguageSelector page={"user"} showLS={false}></LanguageSelector>
       </div>
       <div className="ChgPswd">

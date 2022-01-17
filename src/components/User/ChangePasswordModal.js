@@ -60,12 +60,6 @@ const ChangePasswordModal = (props) => {
             }/>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={()=>setShowModal(!showModal)}
-            >
-              Close
-            </Button>
             <Button variant="primary" onClick={handleChangePassword}>{state.interfaceStrings.changePassword}</Button>
           </Modal.Footer>
         </Modal>

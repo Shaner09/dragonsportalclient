@@ -14,9 +14,9 @@ const Registration = (props) => {
     const handleRegister = async () => {
       if (data.password===data.verifyPassword) {
         const results = await dispatch(register({...data,language: state.browserLanguageCode}))
-        results? setMessage(`User "${results.nickname}" created!`) : setMessage('Request failed. try again.')
+        results? setMessage(`${state.interfaceStrings.user} "${results.nickname}" ${state.interfaceStrings.created}`) : setMessage(state.interfaceStrings.registerUnsuccessful)
       } else {
-        setMessage('Your passwords do not match')
+        setMessage(state.interfaceStrings.passError1)
       }
       setShowModal(!showModal)
     }
@@ -96,12 +96,6 @@ const Registration = (props) => {
             }/> */}
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={()=>setShowModal(!showModal)}
-            >
-              Close
-            </Button>
             <Button variant="primary" onClick={handleRegister}>{state.interfaceStrings.register}</Button>
           </Modal.Footer>
         </Modal>
