@@ -97,3 +97,6 @@ button.btn.btn-primary {
 .NavMyGroupsBtn {
   display: flex;
 }
+.flagImg {
+  float: right;
+}

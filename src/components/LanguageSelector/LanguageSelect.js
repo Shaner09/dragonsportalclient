@@ -51,25 +51,34 @@ const LanguageSelector = (props) => {
       : props.setShowLS(false);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (state.command.includes("portal ghost")) {
-      let searchString = state.command.split('-x9-')[1].toLowerCase()
-      let language1 = languageInfo.filter(language2=>searchString.includes(language2[0].toLowerCase().split('-').join(' ')))[0]
-      if (language1!==undefined) { 
-        dispatch(setGhosting(language1[1]))
+      let searchString = state.command.split("-x9-")[1].toLowerCase();
+      let language1 = languageInfo.filter((language2) =>
+        searchString.includes(language2[0].toLowerCase().split("-").join(" "))
+      )[0];
+      if (language1 !== undefined) {
+        dispatch(setGhosting(language1[1]));
       } else {
-        dispatch(setGhosting(''))
+        dispatch(setGhosting(""));
       }
-    }else if (state.command.includes("portal change language")) {
-      let searchString = state.command.split('-x9-')[1].toLowerCase()
-      let language1 = languageInfo.filter(language2=>searchString.includes(language2[0].toLowerCase().split('-').join(' ')))[0]
-      if (language1!==undefined) {
-        dispatch(setBrowserLanguage({ languageCode: language1[1]}))
-        dispatch(changeUserLanguage({u_id: state.user._id,userPutter: { language: language1[1] }}));
+    } else if (state.command.includes("portal change language")) {
+      let searchString = state.command.split("-x9-")[1].toLowerCase();
+      let language1 = languageInfo.filter((language2) =>
+        searchString.includes(language2[0].toLowerCase().split("-").join(" "))
+      )[0];
+      if (language1 !== undefined) {
+        dispatch(setBrowserLanguage({ languageCode: language1[1] }));
+        dispatch(
+          changeUserLanguage({
+            u_id: state.user._id,
+            userPutter: { language: language1[1] },
+          })
+        );
       }
     }
-    dispatch(setCommand(''))
-  },[state.command])
+    dispatch(setCommand(""));
+  }, [state.command]);
 
   return (
     <span>
@@ -87,10 +96,21 @@ const LanguageSelector = (props) => {
       >
         <Modal.Header
           closeButton
-          style={{background:"beige"}}
+          style={{ background: "beige" }}
           onClick={() => props.page === "thoughts" && props.setShowLS(false)}
         ></Modal.Header>
-        <div style={{textAlign:"center", height:'50px', marginTop:"-50px", fontSize:"30px", marginRight:"40px", marginLeft:"40px"}}><b>{state.browserLanguage}</b></div>
+        <div
+          style={{
+            textAlign: "center",
+            height: "50px",
+            marginTop: "-50px",
+            fontSize: "30px",
+            marginRight: "40px",
+            marginLeft: "40px",
+          }}
+        >
+          <b>{state.browserLanguage}</b>
+        </div>
         <Container
           style={{
             display: "flex",
@@ -129,7 +149,8 @@ const LanguageSelector = (props) => {
                 key={i}
                 onClick={() => handleClick(pair[1], pair[2], pair[3])}
               >
-                {pair[2]}, {pair[0]}
+                {pair[2]}, {pair[0]},
+                <img className="flagImg" src={pair[4]} alt=""></img>
               </div>
             ))}
           </Container>

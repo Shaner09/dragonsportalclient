@@ -1,157 +1,225 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button, Modal, FormControl, ToggleButton } from "react-bootstrap";
+import {
+  Container,
+  Button,
+  Modal,
+  FormControl,
+  ToggleButton,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getThoughts, get10Thoughts, invite, resetThoughts, deleteThought, editThought, setGhosting, setCommand } from "../../actions/useData";
+import {
+  getThoughts,
+  get10Thoughts,
+  invite,
+  resetThoughts,
+  deleteThought,
+  editThought,
+  setGhosting,
+  setCommand,
+} from "../../actions/useData";
 import ReactScrollableFeed from "react-scrollable-feed";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
-import {useNavigate} from 'react-router-dom'
-import LanguageSelector from "../LanguageSelector/LanguageSelect"
+import { useNavigate } from "react-router-dom";
+import LanguageSelector from "../LanguageSelector/LanguageSelect";
 
 const ThoughtList = () => {
-  let navigate = useNavigate()
-  const [counter, setCounter]=useState(0)
+  let navigate = useNavigate();
+  const [counter, setCounter] = useState(0);
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.state)
-  const [checked, setChecked] = useState(false)
-  const [showDeleteModal,setShowDeleteModal] = useState(false)
-  const [showEditModal,setShowEditModal] = useState(false)
-  const [thought, setThought] = useState('')
-  const [newMessage, setNewMessage] = useState('')
-  const [showLS, setShowLS] = useState(false)
+  const state = useSelector((state) => state.state);
+  const [checked, setChecked] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [thought, setThought] = useState("");
+  const [newMessage, setNewMessage] = useState("");
+  const [showLS, setShowLS] = useState(false);
 
   const handleDelete1 = (id) => {
-    setThought(id)
-    setShowDeleteModal(!showDeleteModal)
+    setThought(id);
+    setShowDeleteModal(!showDeleteModal);
   };
 
   const handleDelete2 = () => {
-    console.log('delete thought ' + thought)
-    dispatch(deleteThought({t_id:thought, u_id: state.user._id, g_id: state.group._id}))
-    setShowDeleteModal(!showDeleteModal)
+    console.log("delete thought " + thought);
+    dispatch(
+      deleteThought({
+        t_id: thought,
+        u_id: state.user._id,
+        g_id: state.group._id,
+      })
+    );
+    setShowDeleteModal(!showDeleteModal);
   };
 
   const handleEdit1 = (id, message) => {
-    setThought(id)
-    setNewMessage(message)
-    setShowEditModal(!showEditModal)
+    setThought(id);
+    setNewMessage(message);
+    setShowEditModal(!showEditModal);
   };
 
   const handleEdit2 = () => {
-    console.log('Edit thought ' + thought)
-    dispatch(editThought({t_id:thought, newTranslation:{language: state.user.language, message:newMessage}, u_id: state.user._id}))
-    setShowEditModal(!showEditModal)
+    console.log("Edit thought " + thought);
+    dispatch(
+      editThought({
+        t_id: thought,
+        newTranslation: { language: state.user.language, message: newMessage },
+        u_id: state.user._id,
+      })
+    );
+    setShowEditModal(!showEditModal);
   };
 
   const loadMore = (count) => {
-    let thoughtArray = state.group.thoughts
-    let newCount = count+2
-    newCount = newCount>thoughtArray.length ? thoughtArray.length : newCount
-    setCounter(newCount)
-    let newThoughts = thoughtArray.slice(thoughtArray.length-newCount,thoughtArray.length-count)
-    dispatch(get10Thoughts(newThoughts))
-  }
+    let thoughtArray = state.group.thoughts;
+    let newCount = count + 2;
+    newCount = newCount > thoughtArray.length ? thoughtArray.length : newCount;
+    setCounter(newCount);
+    let newThoughts = thoughtArray.slice(
+      thoughtArray.length - newCount,
+      thoughtArray.length - count
+    );
+    dispatch(get10Thoughts(newThoughts));
+  };
 
   const generateInvite = () => {
-    dispatch(invite({ u_id: state.user._id, g_id: state.group._id}))
-  }
+    dispatch(invite({ u_id: state.user._id, g_id: state.group._id }));
+  };
 
   const toggleGhosting = (e) => {
-    e.target.checked ? setShowLS(true) : dispatch(setGhosting(''))
-  }
+    e.target.checked ? setShowLS(true) : dispatch(setGhosting(""));
+  };
 
   const handleGet = () => {
-    let getObject = {g_id: state.group._id, languages: [state.user.language]}
+    let getObject = { g_id: state.group._id, languages: [state.user.language] };
     if (state.ghosting) {
-      getObject.languages.push(state.ghosting)
+      getObject.languages.push(state.ghosting);
     }
-    dispatch(getThoughts(getObject))
-  }
+    dispatch(getThoughts(getObject));
+  };
 
   useEffect(() => {
-    state.user._id==='' && navigate('/')
-    dispatch(resetThoughts())
+    state.user._id === "" && navigate("/");
+    dispatch(resetThoughts());
     //loadMore(counter)
-    console.log(state.group._id)
-    handleGet()
+    console.log(state.group._id);
+    handleGet();
   }, []);
 
-  useEffect(()=>{
-    state.command==="invite" && generateInvite()
-    dispatch(setCommand(''))
-  },[state.command])
+  useEffect(() => {
+    state.command === "invite" && generateInvite();
+    dispatch(setCommand(""));
+  }, [state.command]);
 
   return (
     <Container>
-      <Button onClick={()=>handleGet()}>{state.interfaceStrings.update}</Button>
+      <Button onClick={() => handleGet()}>
+        {state.interfaceStrings.update}
+      </Button>
       {/*<Button onClick={()=>{loadMore(counter)}}>Load 2 more</Button>*/}
-      <Button onClick={generateInvite}>{state.interfaceStrings.getInviteCode}</Button>
+      <Button onClick={generateInvite}>
+        {state.interfaceStrings.getInviteCode}
+      </Button>
       <ToggleButton
         id="toggle-check"
         type="checkbox"
         variant="outline-primary"
-        checked={state.ghosting!==''}
+        checked={state.ghosting !== ""}
         onChange={(e) => toggleGhosting(e)}
       >
         {state.interfaceStrings.ghosting}
       </ToggleButton>
-      <LanguageSelector page={"thoughts"} showLS={showLS} setShowLS={setShowLS}></LanguageSelector>
-    <Container style={{ display: "flex", flexDirection: "column", padding: "0px", height: "400px"}}>
-      <ReactScrollableFeed>
-        {state.thoughts.length===0 && state.interfaceStrings.noThoughts}
-        {state.thoughts.map((thought, i) => (
-          <Container style={{ borderRadius: "10px", padding: "5px", margin: "10px 0px", background: "#D8D8D8",}} key={i}>
-            <h3>{thought.creatorNickName}</h3>
-            {thought.messages.map((message,i)=><div key={i}>{message}</div>)}
-            <FaTrash style={{ cursor: "pointer" }} onClick={() => handleDelete1(thought._id)}></FaTrash>
-            <FaPencilAlt style={{ cursor: "pointer" }} onClick={() => handleEdit1(thought._id, thought.message)}></FaPencilAlt>
-          </Container>
-        ))}
-      </ReactScrollableFeed>
-      <Modal
+      <LanguageSelector
+        page={"thoughts"}
+        showLS={showLS}
+        setShowLS={setShowLS}
+      ></LanguageSelector>
+      <Container
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "0px",
+          height: "400px",
+        }}
+      >
+        <ReactScrollableFeed>
+          {state.thoughts.length === 0 && state.interfaceStrings.noThoughts}
+          {state.thoughts.map((thought, i) => (
+            <Container
+              style={{
+                borderRadius: "10px",
+                padding: "5px",
+                margin: "10px 0px",
+                background: "#D8D8D8",
+              }}
+              key={i}
+            >
+              <h3>{thought.creatorNickName}</h3>
+              {thought.messages.map((message, i) => (
+                <div key={i}>{message}</div>
+              ))}
+              <FaTrash
+                style={{ cursor: "pointer" }}
+                onClick={() => handleDelete1(thought._id)}
+              ></FaTrash>
+              <FaPencilAlt
+                style={{ cursor: "pointer" }}
+                onClick={() => handleEdit1(thought._id, thought.message)}
+              ></FaPencilAlt>
+            </Container>
+          ))}
+        </ReactScrollableFeed>
+        <Modal
           show={showDeleteModal}
-          onHide={()=>setShowDeleteModal(!showDeleteModal)}
+          onHide={() => setShowDeleteModal(!showDeleteModal)}
           backdrop="static"
           keyboard={false}
         >
-          <Modal.Body>
-          {state.interfaceStrings.deleteThought}
-          </Modal.Body>
+          <Modal.Body>{state.interfaceStrings.deleteThought}</Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="primary"
-              onClick={handleDelete2}
-            >
+            <Button variant="secondary" onClick={handleDelete2}>
               {state.interfaceStrings.yes}
             </Button>
-            <Button variant="danger" onClick={()=>setShowDeleteModal(!showDeleteModal)}>{state.interfaceStrings.no}</Button>
+            <Button variant="primary" onClick={handleDelete2}>
+              {state.interfaceStrings.no}
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => setShowDeleteModal(!showDeleteModal)}
+            >
+              {state.interfaceStrings.no}
+            </Button>
           </Modal.Footer>
         </Modal>
         <Modal
           show={showEditModal}
-          onHide={()=>setShowEditModal(!showEditModal)}
+          onHide={() => setShowEditModal(!showEditModal)}
           backdrop="static"
           keyboard={false}
         >
           <Modal.Body>
-          {state.interfaceStrings.reviseMessage}:
-            <FormControl  
-            required
-            value={newMessage}
-            onChange={(e) =>
-                setNewMessage(e.target.value)
-            }/>
+            {state.interfaceStrings.reviseMessage}:
+            <FormControl
+              required
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+            />
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="primary"
-              onClick={handleEdit2}
-            >
+            <Button variant="secondary" onClick={handleEdit2}>
               {state.interfaceStrings.send}
             </Button>
-            <Button variant="danger" onClick={()=>setShowEditModal(!showEditModal)}>X</Button>
+            <Button variant="primary" onClick={handleEdit2}>
+              Cancel
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => setShowEditModal(!showEditModal)}
+            >
+              X
+            </Button>
           </Modal.Footer>
         </Modal>
-    </Container>
+      </Container>
     </Container>
   );
 };
