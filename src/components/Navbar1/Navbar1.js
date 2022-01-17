@@ -7,7 +7,7 @@ import {
   ToggleButton,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleGhost } from "../../actions/useData";
+import { setCommand, toggleGhost } from "../../actions/useData";
 import { useNavigate, useLocation } from "react-router-dom";
 import STT from "../STT/STT";
 
@@ -19,6 +19,11 @@ const Navbar1 = () => {
   const openGrp = () => {
     navigate("/groups");
   };
+
+  useEffect(()=>{
+    state.command==="state" && console.log(state)
+    dispatch(setCommand(''))
+  },[state.command])
 
   return (
     location.pathname !== "/" && (

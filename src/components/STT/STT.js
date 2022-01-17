@@ -71,7 +71,7 @@ let STT = (props) => {
 
     recognition.addEventListener("end", () => {
       if (textsRef.current.includes('portal state')) {
-        console.log(state)
+        dispatch(setCommand('state'))
       } else if (textsRef.current.includes('portal my groups')) {
         navigate("/groups");
       } else if (textsRef.current.includes('portal user page')) {
