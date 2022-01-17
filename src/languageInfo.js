@@ -198,7 +198,7 @@ const languageInfo = [
       welcome2: "سنكون صوتك.",
       portal: "منفذ",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Armenian",
@@ -350,7 +350,7 @@ const languageInfo = [
       welcome2: "Zure ahotsa izango gara.",
       portal: "ataria",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Belarusian",
@@ -451,7 +451,7 @@ const languageInfo = [
       welcome2: "আমরা আপনার কন্ঠ হবে.",
       portal: "পোর্টাল",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Bosnian",
@@ -655,6 +655,7 @@ const languageInfo = [
       welcome2: "Kami mahimong imong tingog.",
       portal: "portal",
     },
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Chinese-simplified",
@@ -1106,7 +1107,7 @@ const languageInfo = [
       welcome2: "Ni estos via voĉo.",
       portal: "portalo",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Estonian",
@@ -1863,7 +1864,7 @@ const languageInfo = [
       welcome2: "Peb yuav yog koj lub suab.",
       portal: "portal",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Hungarian",
@@ -2213,7 +2214,7 @@ const languageInfo = [
       welcome2: "私たちはあなたの声になります。",
       portal: "ポータル",
     },
-    "https://flagcdn.com/16x12/ja.png",
+    "https://flagcdn.com/16x12/jp.png",
   ],
   [
     "Javanese",
@@ -2263,7 +2264,7 @@ const languageInfo = [
       welcome2: "Kita bakal dadi swara sampeyan.",
       portal: "portal",
     },
-    "https://flagcdn.com/16x12/jv.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Kannada",
@@ -2512,7 +2513,7 @@ const languageInfo = [
       welcome2: "우리는 당신의 목소리가 될 것입니다.",
       portal: "문",
     },
-    "https://flagcdn.com/16x12/ko.png",
+    "https://flagcdn.com/16x12/kn.png",
   ],
   [
     "Kurdish",
@@ -3470,7 +3471,7 @@ const languageInfo = [
       welcome2: "ଆମେ ତୁମର ସ୍ୱର ହେବୁ |",
       portal: "ପୋର୍ଟାଲ୍",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Pashto",
@@ -3873,7 +3874,7 @@ const languageInfo = [
       welcome2: "E avea i matou ma ou leo.",
       portal: "faitotoa",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Scots Gaelic",
@@ -4025,7 +4026,7 @@ const languageInfo = [
       welcome2: "Re tla ba lentsoe la hao.",
       portal: "portal",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Shona",
@@ -4377,7 +4378,7 @@ const languageInfo = [
       welcome2: "Seremos tu voz.",
       portal: "portal",
     },
-    "https://flagcdn.com/16x12/sp.png",
+    "https://flagcdn.com/16x12/es.png",
   ],
   [
     "Sundanese",
@@ -4428,7 +4429,7 @@ const languageInfo = [
       welcome2: "Kami bakal janten sora anjeun.",
       portal: "portal",
     },
-    "https://flagcdn.com/16x12/xx.png",
+    "https://flagcdn.com/16x12/un.png",
   ],
   [
     "Swahili",
