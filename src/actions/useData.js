@@ -17,6 +17,7 @@ const state = (
     },
     browserLanguageCode:'en',
     browserLanguage:'English',
+    browserFlag:"https://flagcdn.com/16x12/us.png",
     interfaceStrings:{
       "login": "Login",
       "register": "Register",
@@ -127,7 +128,7 @@ const state = (
       return { ...state2, ghosting: action.payload };
     case "SET_BROWSER_LANGUAGE":
       let needed = languageInfo.find(languageArray=>languageArray[1]===action.payload.languageCode)
-      return { ...state2, browserLanguageCode: action.payload.languageCode, browserLanguage: needed[2], interfaceStrings: needed[3]};
+      return { ...state2, browserLanguageCode: action.payload.languageCode, browserLanguage: needed[2], interfaceStrings: needed[3], browserFlag: needed[4]};
     case "SET_INTERFACE_STRINGS":
       return { ...state2, interfaceStrings: action.payload };
     case "SET_COMMAND":

@@ -23,7 +23,7 @@ const Registration = (props) => {
  
     return (
       <span>
-      <Button onClick={()=>setShowModal(!showModal)}>{state.interfaceStrings.register}</Button>
+      <Button style={{width:"86px"}} onClick={()=>setShowModal(!showModal)}>{state.interfaceStrings.register}</Button>
       <Modal
           show={showModal}
           onHide={()=>setShowModal(!showModal)}

@@ -36,8 +36,10 @@ return(
     <h3>D.F.S./D.</h3> */}
     </span>
     <LanguageSelector page={'welcome'} showLS={false}></LanguageSelector>
-    <Container className="images">
-        <img className="dragon-image" src={image1}/>
+    <Container className="images" style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+    <LogInForm/>
+        <div><img className="dragon-image" src={image1}/></div>
+        <Registration/>
     </Container>
     <Container className="images2">
         <img className="family-image" src={image2}/>
@@ -45,8 +47,6 @@ return(
     <Container className="bottom" style={{textAlign:"center"}}>
     </Container>
     <Container style={{textAlign:"center"}}>
-        <LogInForm/>
-        <Registration/>
     </Container>
         <div className="centered" style={{textAlign:"center"}}>
             <h1>{state.interfaceStrings.welcome1}</h1>

@@ -54,16 +54,11 @@ const LogInForm =({setToken})=>{
     //   })
  
     return (
-    <Container style={{textAlign:"center"}}>  
-    <Button className="log-in" variant="primary" onClick={() => {
+    <span>  
+    <Button style={{width:"86px"}} className="log-in" variant="primary" onClick={() => {
             setShowModal(!showModal)}}>
         {state.interfaceStrings.login}
     </Button>
-    <InputGroup.Text
-      style={{ cursor: "pointer" }}
-      onClick={() => {
-        setShowModal(!showModal)}}
-    />
     <Modal
         show={showModal}
         onHide={()=>{
@@ -109,7 +104,7 @@ const LogInForm =({setToken})=>{
       <Button onClick={(e)=>handleSubmit(e)}>{state.interfaceStrings.login}</Button>
     </Modal.Footer>
   </Modal>
-  </Container>
+  </span>
    )
 }
  

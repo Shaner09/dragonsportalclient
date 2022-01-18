@@ -16,6 +16,7 @@ const ThoughtCreator = () => {
       }
       dispatch(createThought(thoughtCreatorObject))
       console.log(`make thought: (${state.message})  by: ${state.user._id}`)
+      dispatch(setStateMessage(''))
   }
 
   useEffect(()=>{
