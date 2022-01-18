@@ -58,11 +58,11 @@ const Groups = () => {
         display: "flex",
         flexDirection: "column",
         padding: "0px",
-        height: "500px",
+        height: "90vh",
       }}
     >
       <LanguageSelector page={"thoughts"} ></LanguageSelector>
-      <div className="styles_scrollable-div__prSCv">
+      <div className="styles_scrollable-div__prSCv" style={{height: "81vh"}}>
         <div>
           {state.groups
             .filter((group) =>
@@ -101,7 +101,7 @@ const Groups = () => {
             ))}
         </div>
       </div>
-      <Container style={{ display: "flex", padding: "0px" }}>
+      <Container style={{ display: "flex", padding: "0px", height: "7vh"}}>
         <FormControl
           placeholder={state.interfaceStrings.searchForGroup}
           value={groupSearchText}

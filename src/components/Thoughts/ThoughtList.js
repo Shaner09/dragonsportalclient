@@ -33,6 +33,8 @@ const ThoughtList = () => {
   const [thought, setThought] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const [showLS, setShowLS] = useState(false);
+  const [bounce1, setBounce1] = useState(false);
+  const [bounce2, setBounce2] = useState('start');
 
   const handleDelete1 = (id) => {
     setThought(id);
@@ -110,11 +112,32 @@ const ThoughtList = () => {
     dispatch(setCommand(""));
   }, [state.command]);
 
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  //These bounce functions are self-closing recursive functions. 
+  //They will cause an error in the console when the page is changed, but functionality is unaffected.
+  //This is bad code, but i think it will make our app look cooler in the demo if it auto-refreshes
+
+  useEffect( async () => {
+    await sleep(2500);
+    console.log('bounce1')
+    bounce2==="start" ? setBounce2(true) : setBounce2(!bounce2)
+  }, [bounce1]);
+
+  useEffect( async () => {
+    if (bounce2!=="start") {
+      handleGet()
+      await sleep(2500);
+      console.log('bounce2')
+      setBounce1(!bounce1)
+    }
+  }, [bounce2]);
+
   return (
-    <Container>
-      <Button onClick={() => handleGet()}>
-        {state.interfaceStrings.update}
-      </Button>
+    <Container style={{height: "81vh"}}>
+      <div style={{height: "7vh", display: "flex", flexDirection:"row"}}>
       {/*<Button onClick={()=>{loadMore(counter)}}>Load 2 more</Button>*/}
       <Button onClick={generateInvite}>
         {state.interfaceStrings.getInviteCode}
@@ -133,12 +156,13 @@ const ThoughtList = () => {
         showLS={showLS}
         setShowLS={setShowLS}
       ></LanguageSelector>
+      </div>
       <Container
         style={{
           display: "flex",
           flexDirection: "column",
           padding: "0px",
-          height: "400px",
+          height: "73vh",
         }}
       >
         <ReactScrollableFeed>

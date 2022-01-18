@@ -154,8 +154,6 @@ export const resetThoughts = () => async (dispatch) => {
 export const getThoughts = (getInfo) => async (dispatch) => {
   try {
     const { data } = await axios.get(url + "portal/thoughts/" + getInfo.g_id + '/' + JSON.stringify(getInfo.languages) );
-    console.log("here----------");
-    console.log(data.thoughts);
     dispatch({
       type: "SET_THOUGHTS",
       payload: data.thoughts[0].map((thing) => thing),

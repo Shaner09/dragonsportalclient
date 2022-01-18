@@ -22,7 +22,7 @@ const NewGrpModal = () => {
   return (
     <span>
       <InputGroup.Text
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "pointer", height: "7vh" }}
         onClick={() => {
           setShowModal(!showModal);
         }}

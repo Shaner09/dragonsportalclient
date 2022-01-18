@@ -24,7 +24,7 @@ const ThoughtCreator = () => {
   },[state.command])
 
     return (
-      <Container style={{display:'flex', padding:"0px"}}>
+      <Container style={{display:'flex', padding:"0px", height:"7vh"}}>
         <FormControl  
         name="message"
         required
