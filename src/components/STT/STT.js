@@ -165,6 +165,7 @@ let STT = (props) => {
         variant="outline-primary"
         checked={gCommand!=='terminate'}
         onClick={()=>handleButtonClick()}
+        style={{marginRight:"2vw", color:"white", border:"1px solid white"}}
       >STT</ToggleButton>
     </span>
   );

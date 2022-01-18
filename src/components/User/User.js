@@ -43,7 +43,7 @@ const User = () => {
   },[state.command])
 
   return (
-    <Container>
+    <Container style={{height:"90vh"}} >
       <div className="profileArea">
         <h2>{state.interfaceStrings.user}:</h2>
         <div className="fullname">

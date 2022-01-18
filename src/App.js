@@ -20,6 +20,7 @@ const App = () => {
 
   return (
     <Router>
+      <div style={{height:window.location.pathname!=="/" && '100vh'}}>
       <Navbar1 />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/stt" element={<STT />} />
         <Route path="*" element={<div>error</div>} />
       </Routes>
+      </div>
     </Router>
   );
 };
