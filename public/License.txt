@@ -1,0 +1,19 @@
+(all rights reserved)
+This software is a student capstone project. 
+It is agreed that It(the Project) will be the basis of The Designor's Personal Portal and should he choose his unincumbered business space.  
+The other Members of the "DRAGON TEAM" who hold all rights reserved in this software are free to use the code as it can help them. Or the Idea in a different venue.  Rearranged, this software can be helpful to many business applications. 
+
+It is the Desire of the team, that this software be available to the future developers of the world to look at and learn from.
+It is the Desire of the team, that this software be available to all, to use as is; for: PERSONAL FAMILY COMMUNICATION. On YOUR servers, ON Your dime, we gift you this ability.  if you desire to rent said, see the paragraphs above. If you desire to build said, I hope to have the instructions in a seperate Git Hub Project soon. 
+
+NO ONE, save THE Dragons, are allowed to use this software to make money, and if you do, you agree that we can add the gold you made + 2,000,000 % , to our horde, for the trouble!!
+
+All artwork in this Project is Property of the Artist, whom is our fellow student. ask us, we will tell you who JakeLand is! 
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

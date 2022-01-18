@@ -1053,7 +1053,7 @@ const languageInfo = [
       created: "created!",
       registerUnsuccessful: "Register unsuccessful",
       welcome1:
-        "One stop real time communicator for the diversed multi-lingual environment.",
+        "One stop real time communicator for the diverse, multi-lingual, family environment.",
       welcome2: "We will be your voice.",
       portal: "portal",
     },
