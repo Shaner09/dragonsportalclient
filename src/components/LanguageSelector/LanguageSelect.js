@@ -84,6 +84,7 @@ const LanguageSelector = (props) => {
     <span>
       {props.page !== "thoughts" && (
         <Button onClick={() => setShowModal(!showModal)}>
+          <img className="flagImg" src={state.browserFlag} alt=""></img>
           {state.browserLanguage}
         </Button>
       )}

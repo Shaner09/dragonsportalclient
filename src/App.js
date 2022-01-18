@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <Router>
-      <div style={{height:window.location.pathname!=="/" && '100vh'}}>
+      <div style={{height:window.location.pathname!=="/" && '100vh', minHeight:"100vh"}}>
       <Navbar1 />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
