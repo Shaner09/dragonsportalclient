@@ -137,7 +137,7 @@ const ThoughtList = () => {
 
   return (
     <Container style={{height: "81vh"}}>
-      <div style={{height: "7vh", display: "flex", flexDirection:"row"}}>
+      <div style={{height: "7vh", display: "flex", flexDirection:"row", justifyContent:"center"}}>
       {/*<Button onClick={()=>{loadMore(counter)}}>Load 2 more</Button>*/}
       <Button onClick={generateInvite}>
         {state.interfaceStrings.getInviteCode}
